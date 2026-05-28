@@ -1,5 +1,5 @@
 // ==========================================
-// 10 RANDOM CARDS LOGIC
+// 10 RANDOM CARDS LOGIC (UPDATED WITH SARCASM & DRAMA)
 // ==========================================
 
 class NoRepeatDeck {
@@ -36,39 +36,39 @@ const animeQuotesList = [
 ];
 
 const contentIdeasList = [
-    "Street interview near the local college.", "Sad Shayari with a dark, rainy filter.", "Scripted comedy about college exams.", 
-    "Rate my outfit: Campus edition.", "Voice dubbing an intense anime fight scene.", "Customizing a 1:64 scale die-cast car.",
-    "Mobile battle royale 1v4 clutch highlights.", "A day in the life in my hometown.", "Reviewing the best food in the city.",
-    "Sad Shayari over late-night driving clips.", "How to set up a solar power battery bank.", "Practicing my professional voice-over reel.",
-    "Trading indicators breakdown for beginners.", "Testing the camera quality on my phone.", "Reaction to the newest manga chapter.",
-    "Explaining my favorite anime to a non-anime fan.", "Street photography around town.", "Home workout routine using household items.",
-    "My favorite anime character moments.", "How I edit my short videos.", "Lip-sync comedy with a trending audio.",
-    "Reviewing my home Wi-Fi speeds for gaming.", "Day in the life of a university student.", "Exploring my granny's village.",
-    "DPI and sensitivity settings for mobile gaming.", "Top 5 toy cars in my collection.", "Voice acting: Villain monologue.",
-    "Sad Shayari for broken hearts.", "College canteen food review.", "How to use PDF tools for studying.",
-    "Setting up a stock trading account.", "My thoughts on the latest anime season.", "Mobile game sniper montage.",
-    "The truth about starting a video channel.", "Vlogging a road trip to the mountains.", "How to get over creative block.",
-    "Unboxing a new fast-charging cable.", "Scripted sketch: When your sibling deletes your game.", "Why I want to enter the dubbing industry.",
-    "Aesthetic coffee pouring with lo-fi beats.", "Street style fashion in my city.", "Reviewing AI generation tools.",
-    "How to fix laptop driver errors.", "What's on my phone (Student edition).", "Sad Shayari: The feeling of being lost.",
-    "Public interviews: What song are you listening to?", "My mobile gaming HUD layout.", "Explaining options trading simply.",
-    "The best spots to chill with my best friend.", "Behind the scenes of making a video."
+    "My attempt at being an 'influencer' while my best friend dies of embarrassment.", "Sad Shayari: Narrated by a voice that sounds suspiciously like a broken robot.", "Scripted comedy: Explaining to my parents why I'm not a doctor yet.", 
+    "Rate my outfit: The 'I woke up and chose chaos' collection.", "Voice dubbing an anime fight, but I replace all the shouts with confused noises.", "Customizing a toy car to look like my life: Fast, shiny, and likely to crash.",
+    "Mobile gaming 'clutch' montage, but it's just me running into a wall for 30 seconds.", "Day in the life: Procrastinating in 4K resolution.", "Reviewing food, but I just give every place a 'meh' rating.",
+    "Sad Shayari: Specifically for when I lose my charger.", "How to use a solar battery, or as I call it, 'My expensive desk paperweight'.", "My professional voice-over reel (Warning: Contains heavy breathing).",
+    "Trading indicators: A guide to losing money faster.", "Testing my phone camera on my cat because humans are too judgmental.", "Reaction to the newest manga: I have no idea what just happened.",
+    "Explaining anime stands to my grandmother, who definitely regrets asking.", "Street photography: Trying to look artistic while avoiding eye contact.", "Home workout: How to lift a bag of chips with extreme intensity.",
+    "Analyzing my anime waifu choices like it's a thesis paper.", "How I edit videos: Mostly just adding filters and praying.", "Lip-syncing: Trying to match the audio while eating snacks.",
+    "Reviewing home Wi-Fi: Speed depends on my level of desperation.", "Day in the life: Student edition (a.k.a. staring at the ceiling).", "Exploring the village: Looking for cell signal.",
+    "DPI settings: Changing numbers until the screen goes black.", "Top 5 toy cars: None are in mint condition.", "Voice acting: Villain monologue, but I sound like I have a cold.",
+    "Sad Shayari: The epic saga of an empty inbox.", "College canteen review: It’s not food, it’s a challenge.", "How to use PDF tools: Clicking things until they work.",
+    "Setting up a trading account: Just so I can watch numbers go down in real-time.", "My thoughts on the season: It exists. I watched it.", "Sniper montage: Featuring 99% misses and one lucky shot.",
+    "Starting a channel: Because my ego needed more room.", "Vlogging the mountains: 10 minutes of walking, 5 hours of editing.", "Creative block: A story in 50 variations of nothing.",
+    "Unboxing a cable: Thrilling content, I know.", "Sketch: When the sibling deletes the save file. R.I.P.", "Dubbing career: I'm just here for the free snacks.",
+    "Pouring coffee: Pretending I'm a professional, then burning my tongue.", "Street style: Wearing my most comfortable pajamas.", "Reviewing AI: It's smarter than me, which is a low bar.",
+    "Laptop drivers: A horror movie in three parts.", "What's on my phone: Mostly apps I forgot to delete.", "Sad Shayari: My last brain cell is signing off.",
+    "Street interview: 'What are you listening to?' (I'm listening to a fan hum).", "Gaming layout: I can't reach the buttons, but it looks cool.", "Options trading: Just gambling with extra steps.",
+    "The best spots to chill: Anywhere the Wi-Fi reaches.", "Behind the scenes: My mess of a bedroom."
 ];
 
 const excusesList = [
-    "My ping spiked to 999+.", "My phone screen froze.", "My sensitivity settings got reset.", "The other guy was definitely hacking.",
-    "My digital shield didn't deploy.", "Someone bumped my arm!", "The sun was glaring on my screen.", "My fingers were sweaty.",
-    "I had a massive frame drop.", "My touch sensitivity is too fast today.", "Forgot to change my settings.", "My character skill was on cooldown.",
-    "The loot drop landed on me.", "I was lagging so hard I teleported.", "My screen protector is cracked.", "My home Wi-Fi disconnected.",
-    "I was distracted by a video.", "I was looking at the minimap.", "Controller drift (even on mobile).", "I thought you had him!",
-    "My battery was at 1%.", "The in-game store stole my luck.", "I was reloading.", "My auto-aim locked onto the wrong guy.",
-    "I sneezed.", "I was scratching my nose.", "My device overheated.", "The game audio glitched.",
-    "I was trying out a new HUD.", "I couldn't hear footsteps.", "My teammates blocked my shots.", "I got third-partied.",
-    "The zone closed too fast.", "I dropped my device.", "I was typing a message.", "My screen didn't register the touch.",
-    "I ran out of ammo.", "I was using the wrong weapon.", "I thought he was eliminated.", "I got a phone call in the middle of the fight.",
-    "The game physics are broken.", "My crosshair disappeared.", "I was looking at a stock chart.", "I pressed the wrong button.",
-    "I was admiring my toy cars.", "I was practicing my voice acting.", "The power inverter beeped and scared me.",
-    "I got stuck on a rock.", "I thought we were playing casually.", "I let him win."
+    "My ping spiked to 999+ and sent me to a different dimension.", "My phone screen decided to go on a vacation.", "My sensitivity settings reset, so now I'm aiming for the clouds.", "The other guy was definitely hacking—or I'm just bad. Let's go with hacking.",
+    "My digital shield didn't deploy, or maybe I forgot to press the button.", "Someone bumped my arm! A completely valid reason for my terrible aim.", "The sun was glaring, preventing me from seeing my impending doom.", "My fingers were sweaty; it’s a tactical disadvantage.",
+    "I had a frame drop right when I needed to be a pro.", "My touch sensitivity is way too fast for my human reflexes.", "Forgot to change my settings, so I’m basically playing blind.", "My character skill was on cooldown—a classic design flaw.",
+    "The loot drop landed on me. Does that count as a participation trophy?", "I was lagging so hard I teleported behind the enemy and still died.", "My screen protector is cracked; it’s basically an obstacle course.", "My home Wi-Fi disconnected, and now I’m just staring at a loading screen.",
+    "I was distracted by a video. Education comes first, right?", "I was looking at the minimap and forgot to look at the actual game.", "Controller drift—yes, even on a touch screen. It’s a ghost.", "I thought you had him! Why am I the only one carrying?",
+    "My battery was at 1%. I was playing on hard mode.", "The in-game store stole my luck with a terrible bundle.", "I was reloading. Does no one understand the concept of time?", "My auto-aim locked onto the wrong guy. It’s the game’s fault.",
+    "I sneezed. It ruined my entire strategy.", "I was scratching my nose. A tactical pause.", "My device overheated. It’s basically a portable heater now.", "The game audio glitched, or I just have bad ears.",
+    "I was trying out a new layout. It’s a work in progress.", "I couldn't hear footsteps over the sound of my own panic.", "My teammates blocked my shots. They’re the real enemies.", "I got third-partied while I was contemplating my choices.",
+    "The zone closed too fast. It’s just rude.", "I dropped my device. It’s a sign to quit for the day.", "I was typing a message. Relationships matter more than kills.", "My screen didn't register the touch. Are you blind, phone?",
+    "I ran out of ammo. Why don't they give us infinite everything?", "I was using the wrong weapon. I thought it was a laser beam.", "I thought he was eliminated! He was clearly a ghost.", "I got a phone call in the middle of the fight. Who even calls?",
+    "The physics are broken. That rock was definitely supposed to be intangible.", "My crosshair disappeared. I was just guessing at that point.", "I was looking at a stock chart. Trading is a full-time job.", "I pressed the wrong button. My fingers are too clumsy for this.",
+    "I was admiring my toy cars. Priorities, man.", "I was practicing my voice acting. You can't put a price on art.", "The inverter beeped and scared the soul out of me.",
+    "I got stuck on a rock. I am one with the scenery now.", "I thought we were playing casually. Why are you sweating?", "I let him win. I’m a generous soul."
 ];
 
 const magic8BallList = [
@@ -90,12 +90,12 @@ const contentDeck = new NoRepeatDeck(contentIdeasList);
 const excuseDeck = new NoRepeatDeck(excusesList);
 const eightBallDeck = new NoRepeatDeck(magic8BallList);
 
-// 1. Anime Quote
+// --- The 10 Functions ---
+
 function getAnimeQuote() {
     document.getElementById('anime-result').innerText = animeDeck.draw();
 }
 
-// 2. Card Painter
 function paintCard() {
     const r = Math.floor(Math.random() * 256);
     const g = Math.floor(Math.random() * 256);
@@ -107,30 +107,25 @@ function paintCard() {
     document.getElementById('color-result').innerText = hexColor;
 }
 
-// 3. Text Reverser
 function reverseText() {
     const input = document.getElementById('reverse-input').value;
     const reversed = input.split('').reverse().join('');
     document.getElementById('reverse-result').innerText = reversed || "...";
 }
 
-// 4. Coin Flipper
 function flipCoin() {
     const result = Math.random() < 0.5 ? "Heads" : "Tails";
     document.getElementById('coin-result').innerText = result;
 }
 
-// 5. Content Idea
 function generateReel() {
     document.getElementById('reel-result').innerText = contentDeck.draw();
 }
 
-// 6. Magic 8-Ball
 function shake8Ball() {
     document.getElementById('eight-ball-result').innerText = eightBallDeck.draw();
 }
 
-// 7. Password Generator
 function generatePassword() {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
     let password = "";
@@ -140,18 +135,15 @@ function generatePassword() {
     document.getElementById('password-result').innerText = password;
 }
 
-// 8. Gaming Excuse
 function getExcuse() {
     document.getElementById('excuse-result').innerText = excuseDeck.draw();
 }
 
-// 9. Roll D20
 function rollD20() {
     const roll = Math.floor(Math.random() * 20) + 1;
     document.getElementById('d20-result').innerText = roll;
 }
 
-// 10. Word Counter
 function countWords() {
     const text = document.getElementById('word-input').value.trim();
     const count = text === "" ? 0 : text.split(/\s+/).length;
