@@ -5,30 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>10 Random Cards</title>
     <style>
-        /* Liquid Background Animation */
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 40px 20px;
             min-height: 100vh;
             color: #ffffff;
-            /* Funky, liquid animated gradient */
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            /* A deep, dark background to make the glowing dots pop */
+            background-color: #0f172a;
+            overflow-x: hidden;
+        }
+
+        /* The canvas that holds the 3D liquid dots */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* Keeps it behind the cards */
+            pointer-events: none; /* Lets you click the cards through the canvas */
         }
 
         h1 { 
             text-align: center; 
             margin-bottom: 40px; 
             font-size: 2.5rem;
-            text-shadow: 2px 4px 10px rgba(0,0,0,0.3);
+            text-shadow: 2px 4px 10px rgba(0,0,0,0.5);
             letter-spacing: 2px;
             text-transform: uppercase;
         }
@@ -43,30 +46,31 @@
 
         /* Liquid Glassmorphism Effect */
         .card { 
-            background: rgba(255, 255, 255, 0.1); /* Highly transparent white */
+            background: rgba(255, 255, 255, 0.05); /* Highly transparent white */
             backdrop-filter: blur(12px); /* The frosted glass blur */
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2); /* Deep shadow for depth */
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Subtle white border */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); /* Deep shadow for depth */
             padding: 25px; 
             border-radius: 20px; 
             text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
+            box-shadow: 0 12px 40px 0 rgba(0, 242, 254, 0.2);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         h3 { 
             margin-top: 0; 
             font-size: 1.3rem; 
-            color: #ffffff; 
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+            color: #00f2fe; /* Cyan accent */
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
         }
 
         p { 
@@ -86,21 +90,22 @@
             padding: 10px;
             margin: 0 auto 15px auto;
             border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
             color: white;
             text-align: center;
             font-size: 1rem;
             outline: none;
-            transition: background 0.3s;
+            transition: background 0.3s, border 0.3s;
         }
 
         input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.4);
         }
 
         input:focus {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00f2fe;
         }
 
         /* Funky Vibrant Buttons */
@@ -109,21 +114,22 @@
             cursor: pointer; 
             border: none;
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: rgba(0, 242, 254, 0.15);
+            border: 1px solid rgba(0, 242, 254, 0.5);
             color: white;
             font-size: 1rem;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: all 0.2s ease;
             backdrop-filter: blur(5px);
         }
 
         button:hover { 
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(0, 242, 254, 0.3);
             transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
         }
 
         button:active { 
@@ -132,6 +138,8 @@
     </style>
 </head>
 <body>
+
+    <canvas id="particle-canvas"></canvas>
 
     <h1>10 Random Cards</h1>
 
@@ -202,7 +210,142 @@
     </div>
 
     <script>
-        // --- Helper Class to ensure NO REPEATS until all 50 items are shown ---
+        // ==========================================
+        // 3D INTERACTIVE LIQUID DOT BACKGROUND LOGIC
+        // ==========================================
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray = [];
+        
+        // Mouse tracking
+        let mouse = {
+            x: null,
+            y: null,
+            radius: (canvas.height/8) * (canvas.width/8)
+        }
+
+        window.addEventListener('mousemove', function(event) {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        // Add touch support for mobile devices
+        window.addEventListener('touchmove', function(event) {
+            mouse.x = event.touches[0].clientX;
+            mouse.y = event.touches[0].clientY;
+        });
+
+        window.addEventListener('mouseout', function() {
+            mouse.x = undefined;
+            mouse.y = undefined;
+        });
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
+            // Method to draw individual dot
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+            // Check particle position, check mouse position, move the particle, draw the dot
+            update() {
+                if (this.x > canvas.width || this.x < 0) {
+                    this.directionX = -this.directionX;
+                }
+                if (this.y > canvas.height || this.y < 0) {
+                    this.directionY = -this.directionY;
+                }
+                
+                // Collision detection - make dots avoid the mouse slightly for a fluid feel
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx*dx + dy*dy);
+                if (distance < mouse.radius + this.size){
+                    if (mouse.x < this.x && this.x < canvas.width - this.size * 10) { this.x += 1; }
+                    if (mouse.x > this.x && this.x > this.size * 10) { this.x -= 1; }
+                    if (mouse.y < this.y && this.y < canvas.height - this.size * 10) { this.y += 1; }
+                    if (mouse.y > this.y && this.y > this.size * 10) { this.y -= 1; }
+                }
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        // Create particle array
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 2) - 1.5;
+                let directionY = (Math.random() * 2) - 1.5;
+                let color = '#00f2fe'; // Cyan color
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        // Check if particles are close enough to draw line between them
+        function connect() {
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) 
+                                 + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        opacityValue = 1 - (distance/20000);
+                        ctx.strokeStyle = 'rgba(0, 242, 254,' + opacityValue + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        // Resize event
+        window.addEventListener('resize', function() {
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
+            mouse.radius = ((canvas.height/8) * (canvas.width/8));
+            init();
+        });
+
+        init();
+        animate();
+
+
+        // ==========================================
+        // 10 RANDOM CARDS LOGIC
+        // ==========================================
+
         class NoRepeatDeck {
             constructor(items) {
                 this.items = items;
@@ -219,8 +362,6 @@
                 return this.deck.pop();
             }
         }
-
-        // --- 50 Item Arrays ---
 
         const animeQuotesList = [
             "Yare Yare Daze.", "Domain Expansion.", "Waku Waku!", "Are you the strongest because you're Satoru Gojo?", 
@@ -258,7 +399,6 @@
             "The best spots to chill with my best friend.", "Behind the scenes of making a video."
         ];
 
-        // Specific names and places removed!
         const excusesList = [
             "My ping spiked to 999+.", "My phone screen froze.", "My sensitivity settings got reset.", "The other guy was definitely hacking.",
             "My digital shield didn't deploy.", "Someone bumped my arm!", "The sun was glaring on my screen.", "My fingers were sweaty.",
@@ -289,83 +429,9 @@
             "I plead the fifth.", "It's a secret.", "Ask your sibling.", "Definitely... maybe."
         ];
 
-        // Initialize the decks
         const animeDeck = new NoRepeatDeck(animeQuotesList);
         const contentDeck = new NoRepeatDeck(contentIdeasList);
         const excuseDeck = new NoRepeatDeck(excusesList);
         const eightBallDeck = new NoRepeatDeck(magic8BallList);
 
-
-        // --- The 10 Functions ---
-
-        // 1. Anime Quote
-        function getAnimeQuote() {
-            document.getElementById('anime-result').innerText = animeDeck.draw();
-        }
-
-        // 2. Card Painter (Adjusted to maintain glass effect by using RGBA)
-        function paintCard() {
-            const r = Math.floor(Math.random() * 256);
-            const g = Math.floor(Math.random() * 256);
-            const b = Math.floor(Math.random() * 256);
-            const rgbaColor = `rgba(${r}, ${g}, ${b}, 0.5)`;
-            const hexColor = '#' + r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2, '0');
-            
-            document.getElementById('color-card').style.backgroundColor = rgbaColor;
-            document.getElementById('color-result').innerText = hexColor;
-        }
-
-        // 3. Text Reverser
-        function reverseText() {
-            const input = document.getElementById('reverse-input').value;
-            const reversed = input.split('').reverse().join('');
-            document.getElementById('reverse-result').innerText = reversed || "...";
-        }
-
-        // 4. Coin Flipper
-        function flipCoin() {
-            const result = Math.random() < 0.5 ? "Heads" : "Tails";
-            document.getElementById('coin-result').innerText = result;
-        }
-
-        // 5. Content Idea
-        function generateReel() {
-            document.getElementById('reel-result').innerText = contentDeck.draw();
-        }
-
-        // 6. Magic 8-Ball
-        function shake8Ball() {
-            document.getElementById('eight-ball-result').innerText = eightBallDeck.draw();
-        }
-
-        // 7. Password Generator
-        function generatePassword() {
-            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
-            let password = "";
-            for (let i = 0; i < 12; i++) {
-                password += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            document.getElementById('password-result').innerText = password;
-        }
-
-        // 8. Gaming Excuse
-        function getExcuse() {
-            document.getElementById('excuse-result').innerText = excuseDeck.draw();
-        }
-
-        // 9. Roll D20
-        function rollD20() {
-            const roll = Math.floor(Math.random() * 20) + 1;
-            document.getElementById('d20-result').innerText = roll;
-        }
-
-        // 10. Word Counter
-        function countWords() {
-            const text = document.getElementById('word-input').value.trim();
-            const count = text === "" ? 0 : text.split(/\s+/).length;
-            document.getElementById('word-result').innerText = `${count} words`;
-        }
-    </script>
-</body>
-</html>
-
+       
