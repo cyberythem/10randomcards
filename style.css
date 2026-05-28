@@ -1,3 +1,10 @@
+/* Fix for the blue highlight box on mobile tap */
+button, input, select {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent; /* For older browsers */
+    outline: none;
+}
+
 /* Liquid Background Animation */
 @keyframes gradientShift {
     0% { background-position: 0% 50%; }
