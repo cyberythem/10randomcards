@@ -3,7 +3,7 @@
 A collection of 10 fun, interactive, and multi-functional tools built into a single, sleek, glassmorphic dashboard. Whether you need an excuse for a bad game, a quick anime quote, or just want to pass the time, this dashboard has you covered.
 
 ## 🚀 Live Here
-10randomcards.vercel.app
+https://10randomcards.vercel.app/
 
 ## ✨ Features
 This dashboard features 10 distinct interactive cards:
