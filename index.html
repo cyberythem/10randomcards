@@ -3,60 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10-Button Dashboard</title>
+    <title>10 Random Things</title>
     <style>
-        body { 
-            font-family: system-ui, -apple-system, sans-serif; 
-            background-color: #121212; 
-            color: #ffffff;
-            margin: 0;
-            padding: 20px;
+        /* Liquid Background Animation */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+            color: #ffffff;
+            /* Funky, liquid animated gradient */
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        h1 { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            font-size: 2.5rem;
+            text-shadow: 2px 4px 10px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
         .container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
             max-width: 1200px;
             margin: 0 auto;
         }
+
+        /* Liquid Glassmorphism Effect */
         .card { 
-            background: #1e1e1e; 
-            border: 1px solid #333; 
-            padding: 20px; 
-            border-radius: 12px; 
+            background: rgba(255, 255, 255, 0.1); /* Highly transparent white */
+            backdrop-filter: blur(12px); /* The frosted glass blur */
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2); /* Deep shadow for depth */
+            padding: 25px; 
+            border-radius: 20px; 
             text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        h3 { margin-top: 0; font-size: 1.2rem; color: #4facfe; }
-        p { min-height: 60px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.95rem; }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        h3 { 
+            margin-top: 0; 
+            font-size: 1.3rem; 
+            color: #ffffff; 
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+        }
+
+        p { 
+            min-height: 60px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-weight: 600; 
+            font-size: 1rem; 
+            line-height: 1.4;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* Glassy Inputs */
         input {
-            width: 90%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border-radius: 6px;
-            border: 1px solid #444;
-            background: #2a2a2a;
+            width: 85%;
+            padding: 10px;
+            margin: 0 auto 15px auto;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(0, 0, 0, 0.2);
             color: white;
             text-align: center;
+            font-size: 1rem;
+            outline: none;
+            transition: background 0.3s;
         }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        input:focus {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Funky Vibrant Buttons */
         button { 
-            padding: 10px 15px; 
+            padding: 12px 20px; 
             cursor: pointer; 
             border: none;
-            border-radius: 6px;
-            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
-            color: black;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            font-size: 1rem;
             font-weight: bold;
-            transition: transform 0.1s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+            backdrop-filter: blur(5px);
         }
-        button:active { transform: scale(0.95); }
+
+        button:hover { 
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        button:active { 
+            transform: scale(0.95); 
+        }
     </style>
 </head>
 <body>
 
-    <h1 style="text-align: center; margin-bottom: 30px;">The 10-Button Dashboard</h1>
+    <h1>10 Random Things</h1>
 
     <div class="container">
         
@@ -68,7 +145,7 @@
 
         <div class="card" id="color-card">
             <h3>2. Card Painter</h3>
-            <p id="color-result">#1e1e1e</p>
+            <p id="color-result">Glassy</p>
             <button onclick="paintCard()">Paint Card</button>
         </div>
 
@@ -133,7 +210,6 @@
             }
             draw() {
                 if (this.deck.length === 0) {
-                    // Refill and shuffle the deck
                     this.deck = [...this.items];
                     for (let i = this.deck.length - 1; i > 0; i--) {
                         const j = Math.floor(Math.random() * (i + 1));
@@ -162,7 +238,6 @@
             "There's no such thing as a painless lesson.", "Nothing happened.", "I am the hope of the universe.", "This is my ninja way!"
         ];
 
-        // Specific names and places removed!
         const contentIdeasList = [
             "Street interview near the local college.", "Sad Shayari with a dark, rainy filter.", "Scripted comedy about college exams.", 
             "Rate my outfit: Campus edition.", "Voice dubbing an intense anime fight scene.", "Customizing a 1:64 scale die-cast car.",
@@ -176,26 +251,27 @@
             "Sad Shayari for broken hearts.", "College canteen food review.", "How to use PDF tools for studying.",
             "Setting up a stock trading account.", "My thoughts on the latest anime season.", "Mobile game sniper montage.",
             "The truth about starting a video channel.", "Vlogging a road trip to the mountains.", "How to get over creative block.",
-            "Unboxing a new fast-charging cable.", "Scripted sketch: When your little brother deletes your game.", "Why I want to enter the dubbing industry.",
+            "Unboxing a new fast-charging cable.", "Scripted sketch: When your sibling deletes your game.", "Why I want to enter the dubbing industry.",
             "Aesthetic coffee pouring with lo-fi beats.", "Street style fashion in my city.", "Reviewing AI generation tools.",
             "How to fix laptop driver errors.", "What's on my phone (Student edition).", "Sad Shayari: The feeling of being lost.",
             "Public interviews: What song are you listening to?", "My mobile gaming HUD layout.", "Explaining options trading simply.",
             "The best spots to chill with my best friend.", "Behind the scenes of making a video."
         ];
 
+        // Specific names and places removed!
         const excusesList = [
-            "My ping spiked to 999+.", "Screen froze on my Realme 6 Pro.", "My sensitivity settings got reset.", "The other guy was definitely hacking.",
-            "My Gloo wall didn't deploy.", "Kuku bumped my arm!", "The sun was glaring on my screen.", "My fingers were sweaty.",
-            "I had a massive frame drop.", "My 200 sensitivity is too fast today.", "Forgot to change my DPI.", "My character skill was on cooldown.",
-            "The Airdrop landed on me.", "I was lagging so hard I teleported.", "My screen protector is cracked.", "Airtel Black Wi-Fi disconnected.",
-            "I was distracted by an anime opening.", "I was looking at the minimap.", "Controller drift (even on mobile).", "I thought you had him!",
-            "My battery was at 1%.", "The Moco store stole my luck and my aim.", "I was reloading.", "My auto-aim locked onto the wrong guy.",
-            "I sneezed.", "I was scratching my nose.", "My phone overheated.", "The game audio glitched.",
+            "My ping spiked to 999+.", "My phone screen froze.", "My sensitivity settings got reset.", "The other guy was definitely hacking.",
+            "My digital shield didn't deploy.", "Someone bumped my arm!", "The sun was glaring on my screen.", "My fingers were sweaty.",
+            "I had a massive frame drop.", "My touch sensitivity is too fast today.", "Forgot to change my settings.", "My character skill was on cooldown.",
+            "The loot drop landed on me.", "I was lagging so hard I teleported.", "My screen protector is cracked.", "My home Wi-Fi disconnected.",
+            "I was distracted by a video.", "I was looking at the minimap.", "Controller drift (even on mobile).", "I thought you had him!",
+            "My battery was at 1%.", "The in-game store stole my luck.", "I was reloading.", "My auto-aim locked onto the wrong guy.",
+            "I sneezed.", "I was scratching my nose.", "My device overheated.", "The game audio glitched.",
             "I was trying out a new HUD.", "I couldn't hear footsteps.", "My teammates blocked my shots.", "I got third-partied.",
-            "The zone closed too fast.", "I dropped my phone.", "I was typing a message.", "My screen didn't register the touch.",
-            "I ran out of ammo.", "I was using the wrong gun.", "I thought he was dead.", "I got a phone call in the middle of the fight.",
-            "The game physics are broken.", "My crosshair disappeared.", "I was looking at a TradingView chart.", "I pressed the wrong button.",
-            "I was admiring my Hot Wheels.", "I was practicing my dubbing voice.", "My solar inverter beeped and scared me.",
+            "The zone closed too fast.", "I dropped my device.", "I was typing a message.", "My screen didn't register the touch.",
+            "I ran out of ammo.", "I was using the wrong weapon.", "I thought he was eliminated.", "I got a phone call in the middle of the fight.",
+            "The game physics are broken.", "My crosshair disappeared.", "I was looking at a stock chart.", "I pressed the wrong button.",
+            "I was admiring my toy cars.", "I was practicing my voice acting.", "The power inverter beeped and scared me.",
             "I got stuck on a rock.", "I thought we were playing casually.", "I let him win."
         ];
 
@@ -206,11 +282,11 @@
             "Concentrate and ask again.", "My reply is no.", "My sources say no.", "Outlook not so good.", "Absolutely not.",
             "The algorithm says yes.", "Ping is too high to answer.", "Domain Expansion: Yes.", "Yare Yare... No.",
             "Only if you grind for it.", "The charts are bearish on that one.", "404 Error: Answer not found.", "Sure, why not?",
-            "I wouldn't bet my Hot Wheels on it.", "It's a trap!", "The stars align in your favor.", "Looks like a skill issue.",
+            "I wouldn't bet my toys on it.", "It's a trap!", "The stars align in your favor.", "Looks like a skill issue.",
             "Waku Waku! Yes!", "Nah, I'd win.", "Leave it to fate.", "Not in a million years.", "It is your destiny.",
             "Try turning it off and on again.", "You already know the answer.", "The universe shrugs.", "Check your Wi-Fi and ask again.",
             "100% Guaranteed.", "In your dreams.", "Maybe tomorrow.", "Don't overthink it.", "Go for it!",
-            "I plead the fifth.", "It's a secret.", "Ask your little brother.", "Definitely... maybe."
+            "I plead the fifth.", "It's a secret.", "Ask your sibling.", "Definitely... maybe."
         ];
 
         // Initialize the decks
@@ -227,11 +303,16 @@
             document.getElementById('anime-result').innerText = animeDeck.draw();
         }
 
-        // 2. Card Painter
+        // 2. Card Painter (Adjusted to maintain glass effect by using RGBA)
         function paintCard() {
-            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
-            document.getElementById('color-card').style.backgroundColor = randomColor;
-            document.getElementById('color-result').innerText = randomColor;
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            const rgbaColor = `rgba(${r}, ${g}, ${b}, 0.5)`;
+            const hexColor = '#' + r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2, '0');
+            
+            document.getElementById('color-card').style.backgroundColor = rgbaColor;
+            document.getElementById('color-result').innerText = hexColor;
         }
 
         // 3. Text Reverser
