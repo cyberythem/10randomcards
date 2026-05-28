@@ -60,61 +60,71 @@
 
     <div class="container">
         
+        <!-- 1. Anime Quote Generator (Was 7) -->
         <div class="card">
-            <h3>1. Coin Flipper</h3>
-            <p id="coin-result">Heads or Tails?</p>
-            <button onclick="flipCoin()">Flip Coin</button>
+            <h3>1. Anime Quote</h3>
+            <p id="anime-result">Get inspired.</p>
+            <button onclick="getAnimeQuote()">Summon Quote</button>
         </div>
 
-        <div class="card">
-            <h3>2. Content Generator</h3>
-            <p id="reel-result">Need an idea?</p>
-            <button onclick="generateReel()">Get Idea</button>
+        <!-- 2. Background Color Picker (Was 8) -->
+        <div class="card" id="color-card">
+            <h3>2. Card Painter</h3>
+            <p id="color-result">#1e1e1e</p>
+            <button onclick="paintCard()">Paint Card</button>
         </div>
 
+        <!-- 3. Text Reverser (Was 6) -->
         <div class="card">
-            <h3>3. Magic 8-Ball</h3>
-            <p id="eight-ball-result">Ask a question, then click.</p>
-            <button onclick="shake8Ball()">Shake</button>
-        </div>
-
-        <div class="card">
-            <h3>4. Secure Password</h3>
-            <p id="password-result">********</p>
-            <button onclick="generatePassword()">Generate</button>
-        </div>
-
-        <div class="card">
-            <h3>5. Match Loss Excuse</h3>
-            <p id="excuse-result">Why did you lose?</p>
-            <button onclick="getExcuse()">Find Excuse</button>
-        </div>
-
-        <div class="card">
-            <h3>6. Text Reverser</h3>
+            <h3>3. Text Reverser</h3>
             <input type="text" id="reverse-input" placeholder="Type something...">
             <p id="reverse-result">...</p>
             <button onclick="reverseText()">Reverse It</button>
         </div>
 
+        <!-- 4. Coin Flipper (Was 1) -->
         <div class="card">
-            <h3>7. Anime Quote</h3>
-            <p id="anime-result">Get inspired.</p>
-            <button onclick="getAnimeQuote()">Summon Quote</button>
+            <h3>4. Coin Flipper</h3>
+            <p id="coin-result">Heads or Tails?</p>
+            <button onclick="flipCoin()">Flip Coin</button>
         </div>
 
-        <div class="card" id="color-card">
-            <h3>8. Card Painter</h3>
-            <p id="color-result">#1e1e1e</p>
-            <button onclick="paintCard()">Paint Card</button>
+        <!-- 5. Reel Idea Generator (Was 2) -->
+        <div class="card">
+            <h3>5. Content Generator</h3>
+            <p id="reel-result">Need an idea?</p>
+            <button onclick="generateReel()">Get Idea</button>
         </div>
 
+        <!-- 6. Magic 8-Ball (Was 3) -->
+        <div class="card">
+            <h3>6. Magic 8-Ball</h3>
+            <p id="eight-ball-result">Ask a question, then click.</p>
+            <button onclick="shake8Ball()">Shake</button>
+        </div>
+
+        <!-- 7. Password Generator (Was 4) -->
+        <div class="card">
+            <h3>7. Secure Password</h3>
+            <p id="password-result">********</p>
+            <button onclick="generatePassword()">Generate</button>
+        </div>
+
+        <!-- 8. Gaming Excuse Generator (Was 5) -->
+        <div class="card">
+            <h3>8. Match Loss Excuse</h3>
+            <p id="excuse-result">Why did you lose?</p>
+            <button onclick="getExcuse()">Find Excuse</button>
+        </div>
+
+        <!-- 9. D20 Dice Roller (Stayed 9) -->
         <div class="card">
             <h3>9. Roll a D20</h3>
             <p id="d20-result">Roll 1-20</p>
             <button onclick="rollD20()">Roll Dice</button>
         </div>
 
+        <!-- 10. Word Counter (Stayed 10) -->
         <div class="card">
             <h3>10. Word Counter</h3>
             <input type="text" id="word-input" placeholder="Paste a sentence...">
@@ -125,58 +135,7 @@
     </div>
 
     <script>
-        // 1. Coin Flipper
-        function flipCoin() {
-            const result = Math.random() < 0.5 ? "Heads" : "Tails";
-            document.getElementById('coin-result').innerText = result;
-        }
-
-        // 2. Content Idea
-        function generateReel() {
-            const ideas = [
-                "Street interview near Sector 26.",
-                "Sad Shayari with a dark, rainy filter.",
-                "Scripted comedy about college exams.",
-                "Rate my outfit: Campus edition."
-            ];
-            document.getElementById('reel-result').innerText = ideas[Math.floor(Math.random() * ideas.length)];
-        }
-
-        // 3. Magic 8-Ball
-        function shake8Ball() {
-            const answers = ["It is certain.", "Reply hazy, try again.", "Don't count on it.", "Without a doubt.", "Very doubtful."];
-            document.getElementById('eight-ball-result').innerText = answers[Math.floor(Math.random() * answers.length)];
-        }
-
-        // 4. Password Generator
-        function generatePassword() {
-            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
-            let password = "";
-            for (let i = 0; i < 12; i++) {
-                password += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            document.getElementById('password-result').innerText = password;
-        }
-
-        // 5. Gaming Excuse
-        function getExcuse() {
-            const excuses = [
-                "My ping spiked to 999+.",
-                "Screen froze on my Realme 6 Pro.",
-                "My sensitivity settings got messed up.",
-                "The other guy was definitely hacking."
-            ];
-            document.getElementById('excuse-result').innerText = excuses[Math.floor(Math.random() * excuses.length)];
-        }
-
-        // 6. Text Reverser
-        function reverseText() {
-            const input = document.getElementById('reverse-input').value;
-            const reversed = input.split('').reverse().join('');
-            document.getElementById('reverse-result').innerText = reversed || "...";
-        }
-
-        // 7. Anime Quote
+        // 1. Anime Quote
         function getAnimeQuote() {
             const quotes = [
                 "Yare Yare Daze.",
@@ -187,11 +146,62 @@
             document.getElementById('anime-result').innerText = quotes[Math.floor(Math.random() * quotes.length)];
         }
 
-        // 8. Card Painter
+        // 2. Card Painter
         function paintCard() {
             const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
             document.getElementById('color-card').style.backgroundColor = randomColor;
             document.getElementById('color-result').innerText = randomColor;
+        }
+
+        // 3. Text Reverser
+        function reverseText() {
+            const input = document.getElementById('reverse-input').value;
+            const reversed = input.split('').reverse().join('');
+            document.getElementById('reverse-result').innerText = reversed || "...";
+        }
+
+        // 4. Coin Flipper
+        function flipCoin() {
+            const result = Math.random() < 0.5 ? "Heads" : "Tails";
+            document.getElementById('coin-result').innerText = result;
+        }
+
+        // 5. Content Idea
+        function generateReel() {
+            const ideas = [
+                "Street interview near Sector 26.",
+                "Sad Shayari with a dark, rainy filter.",
+                "Scripted comedy about college exams.",
+                "Rate my outfit: Campus edition."
+            ];
+            document.getElementById('reel-result').innerText = ideas[Math.floor(Math.random() * ideas.length)];
+        }
+
+        // 6. Magic 8-Ball
+        function shake8Ball() {
+            const answers = ["It is certain.", "Reply hazy, try again.", "Don't count on it.", "Without a doubt.", "Very doubtful."];
+            document.getElementById('eight-ball-result').innerText = answers[Math.floor(Math.random() * answers.length)];
+        }
+
+        // 7. Password Generator
+        function generatePassword() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+            let password = "";
+            for (let i = 0; i < 12; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById('password-result').innerText = password;
+        }
+
+        // 8. Gaming Excuse
+        function getExcuse() {
+            const excuses = [
+                "My ping spiked to 999+.",
+                "Screen froze on my Realme 6 Pro.",
+                "My sensitivity settings got messed up.",
+                "The other guy was definitely hacking."
+            ];
+            document.getElementById('excuse-result').innerText = excuses[Math.floor(Math.random() * excuses.length)];
         }
 
         // 9. Roll D20
