@@ -1,8 +1,12 @@
 /* Fix for the blue highlight box on mobile tap */
 button, input, select {
     -webkit-tap-highlight-color: transparent;
-    -webkit-tap-highlight-color: transparent; /* For older browsers */
     outline: none;
+}
+
+/* Ensure the painter button has a transition so the color change looks smooth */
+#color-card button {
+    transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
 /* Liquid Background Animation */
