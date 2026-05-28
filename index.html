@@ -30,7 +30,7 @@
             justify-content: space-between;
         }
         h3 { margin-top: 0; font-size: 1.2rem; color: #4facfe; }
-        p { min-height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        p { min-height: 60px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.95rem; }
         input {
             width: 90%;
             padding: 8px;
@@ -60,21 +60,18 @@
 
     <div class="container">
         
-        <!-- 1. Anime Quote Generator (Was 7) -->
         <div class="card">
             <h3>1. Anime Quote</h3>
             <p id="anime-result">Get inspired.</p>
             <button onclick="getAnimeQuote()">Summon Quote</button>
         </div>
 
-        <!-- 2. Background Color Picker (Was 8) -->
         <div class="card" id="color-card">
             <h3>2. Card Painter</h3>
             <p id="color-result">#1e1e1e</p>
             <button onclick="paintCard()">Paint Card</button>
         </div>
 
-        <!-- 3. Text Reverser (Was 6) -->
         <div class="card">
             <h3>3. Text Reverser</h3>
             <input type="text" id="reverse-input" placeholder="Type something...">
@@ -82,49 +79,42 @@
             <button onclick="reverseText()">Reverse It</button>
         </div>
 
-        <!-- 4. Coin Flipper (Was 1) -->
         <div class="card">
             <h3>4. Coin Flipper</h3>
             <p id="coin-result">Heads or Tails?</p>
             <button onclick="flipCoin()">Flip Coin</button>
         </div>
 
-        <!-- 5. Reel Idea Generator (Was 2) -->
         <div class="card">
             <h3>5. Content Generator</h3>
             <p id="reel-result">Need an idea?</p>
             <button onclick="generateReel()">Get Idea</button>
         </div>
 
-        <!-- 6. Magic 8-Ball (Was 3) -->
         <div class="card">
             <h3>6. Magic 8-Ball</h3>
             <p id="eight-ball-result">Ask a question, then click.</p>
             <button onclick="shake8Ball()">Shake</button>
         </div>
 
-        <!-- 7. Password Generator (Was 4) -->
         <div class="card">
             <h3>7. Secure Password</h3>
             <p id="password-result">********</p>
             <button onclick="generatePassword()">Generate</button>
         </div>
 
-        <!-- 8. Gaming Excuse Generator (Was 5) -->
         <div class="card">
             <h3>8. Match Loss Excuse</h3>
             <p id="excuse-result">Why did you lose?</p>
             <button onclick="getExcuse()">Find Excuse</button>
         </div>
 
-        <!-- 9. D20 Dice Roller (Stayed 9) -->
         <div class="card">
             <h3>9. Roll a D20</h3>
             <p id="d20-result">Roll 1-20</p>
             <button onclick="rollD20()">Roll Dice</button>
         </div>
 
-        <!-- 10. Word Counter (Stayed 10) -->
         <div class="card">
             <h3>10. Word Counter</h3>
             <input type="text" id="word-input" placeholder="Paste a sentence...">
@@ -135,15 +125,105 @@
     </div>
 
     <script>
+        // --- Helper Class to ensure NO REPEATS until all 50 items are shown ---
+        class NoRepeatDeck {
+            constructor(items) {
+                this.items = items;
+                this.deck = [];
+            }
+            draw() {
+                if (this.deck.length === 0) {
+                    // Refill and shuffle the deck
+                    this.deck = [...this.items];
+                    for (let i = this.deck.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
+                    }
+                }
+                return this.deck.pop();
+            }
+        }
+
+        // --- 50 Item Arrays ---
+
+        const animeQuotesList = [
+            "Yare Yare Daze.", "Domain Expansion.", "Waku Waku!", "Are you the strongest because you're Satoru Gojo?", 
+            "I reject my humanity, JoJo!", "Muda Muda Muda Muda!", "Stand proud, you are strong.", "Oh, you're approaching me?",
+            "With this treasure, I summon...", "I'm going to be a great magician, Roxy-sensei.", "Heh.", "Star Platinum, The World!",
+            "Nah, I'd win.", "Kore ga... Requiem da.", "I love you in every universe.", "I'll leave the rest to you.", 
+            "Anya likes peanuts.", "Forgive me, Sasuke.", "I am atomic.", "I will be the Pirate King!", "Bankai.", 
+            "Tatakae.", "Give up on your dreams and die.", "I want to live!", "Plus Ultra!", "It’s over 9000!", 
+            "People die if they are killed.", "El Psy Kongroo.", "Omae wa mou shindeiru.", "Nani?!", "I am Justice!",
+            "I'll take a potato chip... and eat it!", "If you don't take risks, you can't create a future.", "Bungee Gum possesses the properties of both rubber and gum.", 
+            "I'm not a hero because I want your approval.", "Just who the hell do you think I am?!", "Believe it!", 
+            "Whatever you do, enjoy it to the fullest.", "A lesson without pain is meaningless.", "Fear is not evil.",
+            "I have no enemies.", "Wake up to reality.", "The only ones who should kill, are those prepared to be killed.",
+            "You don't need a reason to save people.", "To defeat evil, I must become a greater evil.", "Even if I die, I'll keep my promise.",
+            "There's no such thing as a painless lesson.", "Nothing happened.", "I am the hope of the universe.", "This is my ninja way!"
+        ];
+
+        const contentIdeasList = [
+            "Street interview near SGGS College.", "Sad Shayari with a dark, rainy filter.", "Scripted comedy about college exams.", 
+            "Rate my outfit: Chandigarh edition.", "Voice dubbing an intense anime fight scene.", "Customizing a 1:64 scale Hot Wheels car.",
+            "Free Fire MAX 1v4 clutch highlights.", "A day in the life in Kangra.", "Reviewing the best food in Sector 26.",
+            "Sad Shayari over late-night driving clips.", "How to set up a solar power battery bank.", "Practicing my professional voice-over reel.",
+            "TradingView indicators breakdown for beginners.", "Testing the camera quality on a Realme 6 Pro.", "Reaction to the newest JJK chapter.",
+            "Explaining JoJo's Bizarre Adventure stands to a non-anime fan.", "Street photography around Chandigarh.", "Home workout routine using household items.",
+            "My favorite Anya Forger moments.", "How I edit my Instagram Reels.", "Lip-sync comedy with a trending audio.",
+            "Reviewing my Airtel Black internet speeds for gaming.", "Day in the life of a BA student.", "Exploring Kudail village.",
+            "DPI and 200 sensitivity settings for mobile gaming.", "Top 5 Hot Wheels in my collection.", "Voice acting: Villain monologue.",
+            "Sad Shayari for broken hearts.", "College canteen food review.", "How to use Adobe Acrobat for studying.",
+            "Setting up a Dhan trading account.", "My thoughts on Mushoku Tensei.", "Free Fire MAX sniper montage.",
+            "The truth about starting a YouTube channel.", "Vlogging a road trip to Himachal Pradesh.", "How to get over creative block.",
+            "Unboxing a new 60W USB-C cable.", "Scripted sketch: When your little brother deletes your game.", "Why I want to enter the dubbing industry.",
+            "Aesthetic coffee pouring with lo-fi beats.", "Street style fashion in Punjab.", "Reviewing AI tools like Gemini.",
+            "How to fix laptop Bluetooth driver errors.", "What's on my phone (Realme 6 Pro edition).", "Sad Shayari: The feeling of being lost.",
+            "Public interviews: What song are you listening to?", "My Free Fire MAX HUD layout.", "Explaining options trading simply.",
+            "The best spots to chill in Sector 26.", "Behind the scenes of making a Reel."
+        ];
+
+        const excusesList = [
+            "My ping spiked to 999+.", "Screen froze on my Realme 6 Pro.", "My sensitivity settings got reset.", "The other guy was definitely hacking.",
+            "My Gloo wall didn't deploy.", "Kuku bumped my arm!", "The sun was glaring on my screen.", "My fingers were sweaty.",
+            "I had a massive frame drop.", "My 200 sensitivity is too fast today.", "Forgot to change my DPI.", "My character skill was on cooldown.",
+            "The Airdrop landed on me.", "I was lagging so hard I teleported.", "My screen protector is cracked.", "Airtel Black Wi-Fi disconnected.",
+            "I was distracted by an anime opening.", "I was looking at the minimap.", "Controller drift (even on mobile).", "I thought you had him!",
+            "My battery was at 1%.", "The Moco store stole my luck and my aim.", "I was reloading.", "My auto-aim locked onto the wrong guy.",
+            "I sneezed.", "I was scratching my nose.", "My phone overheated.", "The game audio glitched.",
+            "I was trying out a new HUD.", "I couldn't hear footsteps.", "My teammates blocked my shots.", "I got third-partied.",
+            "The zone closed too fast.", "I dropped my phone.", "I was typing a message.", "My screen didn't register the touch.",
+            "I ran out of ammo.", "I was using the wrong gun.", "I thought he was dead.", "I got a phone call in the middle of the fight.",
+            "The game physics are broken.", "My crosshair disappeared.", "I was looking at a TradingView chart.", "I pressed the wrong button.",
+            "I was admiring my Hot Wheels.", "I was practicing my dubbing voice.", "My solar inverter beeped and scared me.",
+            "I got stuck on a rock.", "I thought we were playing casually.", "I let him win."
+        ];
+
+        const magic8BallList = [
+            "It is certain.", "Reply hazy, try again.", "Don't count on it.", "Without a doubt.", "Very doubtful.",
+            "Yes - definitely.", "You may rely on it.", "As I see it, yes.", "Most likely.", "Outlook good.",
+            "Yes.", "Signs point to yes.", "Ask again later.", "Better not tell you now.", "Cannot predict now.",
+            "Concentrate and ask again.", "My reply is no.", "My sources say no.", "Outlook not so good.", "Absolutely not.",
+            "The algorithm says yes.", "Ping is too high to answer.", "Domain Expansion: Yes.", "Yare Yare... No.",
+            "Only if you grind for it.", "The charts are bearish on that one.", "404 Error: Answer not found.", "Sure, why not?",
+            "I wouldn't bet my Hot Wheels on it.", "It's a trap!", "The stars align in your favor.", "Looks like a skill issue.",
+            "Waku Waku! Yes!", "Nah, I'd win.", "Leave it to fate.", "Not in a million years.", "It is your destiny.",
+            "Try turning it off and on again.", "You already know the answer.", "The universe shrugs.", "Check your Wi-Fi and ask again.",
+            "100% Guaranteed.", "In your dreams.", "Maybe tomorrow.", "Don't overthink it.", "Go for it!",
+            "I plead the fifth.", "It's a secret.", "Ask your little brother.", "Definitely... maybe."
+        ];
+
+        // Initialize the decks
+        const animeDeck = new NoRepeatDeck(animeQuotesList);
+        const contentDeck = new NoRepeatDeck(contentIdeasList);
+        const excuseDeck = new NoRepeatDeck(excusesList);
+        const eightBallDeck = new NoRepeatDeck(magic8BallList);
+
+
+        // --- The 10 Functions ---
+
         // 1. Anime Quote
         function getAnimeQuote() {
-            const quotes = [
-                "Yare Yare Daze.",
-                "Domain Expansion.",
-                "Waku Waku!",
-                "Are you the strongest because you're Satoru Gojo?"
-            ];
-            document.getElementById('anime-result').innerText = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('anime-result').innerText = animeDeck.draw();
         }
 
         // 2. Card Painter
@@ -168,19 +248,12 @@
 
         // 5. Content Idea
         function generateReel() {
-            const ideas = [
-                "Street interview near Sector 26.",
-                "Sad Shayari with a dark, rainy filter.",
-                "Scripted comedy about college exams.",
-                "Rate my outfit: Campus edition."
-            ];
-            document.getElementById('reel-result').innerText = ideas[Math.floor(Math.random() * ideas.length)];
+            document.getElementById('reel-result').innerText = contentDeck.draw();
         }
 
         // 6. Magic 8-Ball
         function shake8Ball() {
-            const answers = ["It is certain.", "Reply hazy, try again.", "Don't count on it.", "Without a doubt.", "Very doubtful."];
-            document.getElementById('eight-ball-result').innerText = answers[Math.floor(Math.random() * answers.length)];
+            document.getElementById('eight-ball-result').innerText = eightBallDeck.draw();
         }
 
         // 7. Password Generator
@@ -195,13 +268,7 @@
 
         // 8. Gaming Excuse
         function getExcuse() {
-            const excuses = [
-                "My ping spiked to 999+.",
-                "Screen froze on my Realme 6 Pro.",
-                "My sensitivity settings got messed up.",
-                "The other guy was definitely hacking."
-            ];
-            document.getElementById('excuse-result').innerText = excuses[Math.floor(Math.random() * excuses.length)];
+            document.getElementById('excuse-result').innerText = excuseDeck.draw();
         }
 
         // 9. Roll D20
