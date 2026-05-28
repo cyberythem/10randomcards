@@ -95,15 +95,18 @@ const eightBallDeck = new NoRepeatDeck(magic8BallList);
 function getAnimeQuote() {
     document.getElementById('anime-result').innerText = animeDeck.draw();
 }
-
+// Updated Card Painter to target the button inside the card
 function paintCard() {
     const r = Math.floor(Math.random() * 256);
     const g = Math.floor(Math.random() * 256);
     const b = Math.floor(Math.random() * 256);
-    const rgbaColor = `rgba(${r}, ${g}, ${b}, 0.7)`; 
+    const rgbaColor = `rgba(${r}, ${g}, ${b}, 0.6)`; 
     const hexColor = '#' + r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2, '0');
     
-    document.getElementById('color-card').style.backgroundColor = rgbaColor;
+    // Target the button inside the second card specifically
+    const colorBtn = document.querySelector('#color-card button');
+    colorBtn.style.backgroundColor = rgbaColor;
+    colorBtn.style.borderColor = `rgba(${r}, ${g}, ${b}, 0.8)`;
     document.getElementById('color-result').innerText = hexColor;
 }
 
