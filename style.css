@@ -5,8 +5,9 @@ button, input, select {
 }
 
 /* Ensure the painter button has a transition so the color change looks smooth */
-#color-card button {
-    transition: background-color 0.4s ease, border-color 0.4s ease;
+
+#color-card {
+    transition: background-color 0.5s ease, border-color 0.5s ease;
 }
 
 /* Liquid Background Animation */
