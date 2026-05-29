@@ -100,9 +100,18 @@ function paintCard() {
     const r = Math.floor(Math.random() * 256);
     const g = Math.floor(Math.random() * 256);
     const b = Math.floor(Math.random() * 256);
-    const rgbaColor = `rgba(${r}, ${g}, ${b}, 0.6)`; 
+    
+    // We use a lower opacity (0.2) so the glass effect stays readable
+    const rgbaColor = `rgba(${r}, ${g}, ${b}, 0.2)`; 
     const hexColor = '#' + r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2, '0');
     
+    // Target the card itself
+    const card = document.getElementById('color-card');
+    card.style.backgroundColor = rgbaColor;
+    card.style.borderColor = `rgba(${r}, ${g}, ${b}, 0.5)`;
+    
+    document.getElementById('color-result').innerText = hexColor;
+
     // Target the button inside the second card specifically
     const colorBtn = document.querySelector('#color-card button');
     colorBtn.style.backgroundColor = rgbaColor;
